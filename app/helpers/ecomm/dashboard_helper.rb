@@ -1,0 +1,2 @@
+module Ecomm::DashboardHelper
+end

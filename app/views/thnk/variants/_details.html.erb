@@ -1,0 +1,34 @@
+<!-- app/views/thnk/variants/_details.html.erb -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div>
+    <% if variant.images.attached? %>
+      <%= image_tag variant.images.first.variant(resize_to_limit: [400, 400]), class: "w-full h-auto rounded-md object-cover", alt: "#{variant.product.title} Image" %>
+    <% else %>
+      <img class="w-full h-auto rounded-md object-cover" src="placeholder.jpg" alt="No Image">
+    <% end %>
+  </div>
+  <div>
+
+
+    <!-- QR Code Image -->
+    <% if variant.qr_code_image.attached? %>
+      <div class="mt-4">
+        <%= image_tag variant.qr_code_image.variant(resize_to_limit: [200, 200]), alt: "QR Code for #{variant.product.title} - #{variant.variant_sku}" %>
+      </div>
+    <% else %>
+      <p class="mt-4 text-sm text-red-500">No QR Code available.</p>
+    <% end %>
+    <h3 class="text-2xl font-bold text-gray-900 dark:text-neutral-200"><%= variant.product.title %></h3>
+    <p class="mt-2 text-gray-700 dark:text-neutral-400"><%= variant.description.presence || variant.product.description %></p>
+    <p class="mt-4 text-xl font-semibold text-gray-900 dark:text-neutral-200" data-price="<%= variant.variant_price %>">$<%= number_to_currency(variant.variant_price, unit: '') %></p>
+    <!-- Additional Product Details (e.g., SKU, Rating) -->
+    <div class="mt-4">
+      <p class="text-sm text-gray-500 dark:text-neutral-400">SKU: <%= variant.variant_sku %></p>
+      <p class="text-sm text-gray-500 dark:text-neutral-400">Rating: <%= variant.product.rating %> / 5</p>
+    </div>
+
+    <!-- Print QR Code Button -->
+    <!-- Note: Handled by Stimulus controller's print action -->
+  </div>
+</div>

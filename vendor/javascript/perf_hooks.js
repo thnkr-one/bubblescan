@@ -1,0 +1,4 @@
+// perf_hooks@2.1.0 downloaded from https://ga.jspm.io/npm:@jspm/core@2.1.0/nodelibs/browser/perf_hooks.js
+
+function unimplemented(e){throw new Error(`Node.js performance method ${e} is not currently supported by JSPM core in the browser`)}const e=globalThis.PerformanceObserver;const r={};const o={clearMarks:globalThis.performance.clearMarks,eventLoopUtilization:()=>unimplemented("eventLoopUtilization"),mark:globalThis.performance.mark,measure:globalThis.performance.measure,nodeTiming:{},now:globalThis.performance.now,timeOrigin:globalThis.performance.timeOrigin,timerify:()=>unimplemented("timerify")};const monitorEventLoopDelay=()=>unimplemented("monitorEventLoopDelay");var n={performance:o,PerformanceObserver:e,monitorEventLoopDelay:monitorEventLoopDelay,constants:r};export{e as PerformanceObserver,r as constants,n as default,monitorEventLoopDelay,o as performance};
+

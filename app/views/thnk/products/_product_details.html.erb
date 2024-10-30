@@ -1,0 +1,90 @@
+<%# app/views/thnk/products/_product_details.html.erb %>
+
+<div class="flex flex-col md:flex-row">
+  <!-- Product Images and QR Code -->
+  <div class="md:w-1/2 mb-6 md:mb-0">
+    <% if variant.images.attached? %>
+      <div class="carousel space-y-4">
+        <% variant.images.each_with_index do |image, index| %>
+          <%= image_tag image, class: "w-full h-64 object-cover rounded-lg", alt: "#{product.title} Image #{index + 1}" %>
+        <% end %>
+      </div>
+    <% else %>
+      <%= image_tag 'placeholder.png', class: "w-full h-64 object-cover rounded-lg", alt: "No Image Available" %>
+    <% end %>
+
+    <% if variant.qr_code_image.attached? %>
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2">Product QR Code</h3>
+        <div class="flex flex-col items-center">
+          <%= image_tag variant.qr_code_image, class: "w-64 h-64 object-contain", alt: "QR Code for #{product.title} - #{variant.variant_sku}" %>
+          <div class="mt-2 flex space-x-2">
+            <%= button_to "Download QR Code",
+                          rails_blob_path(variant.qr_code_image, disposition: "attachment"),
+                          method: :get,
+                          class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm" %>
+            <button onclick="window.print()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm">
+              Print QR Code
+            </button>
+          </div>
+          <span class="hidden" data-price="<%= variant.variant_price.to_f.round(2) %>"></span>
+        </div>
+      </div>
+    <% else %>
+      <div class="mt-6">
+        <p class="text-center text-yellow-600">
+          QR Code generation in progress. Please refresh in a few moments.
+        </p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Product and Variant Details -->
+  <div class="md:w-1/2 md:pl-6">
+    <h3 class="text-2xl font-semibold mb-4"><%= product.title %></h3>
+    <p class="text-gray-700 dark:text-neutral-300 mb-4"><%= product.body %></p>
+    <div class="bg-gray-50 dark:bg-neutral-800 rounded-lg p-4 mb-4">
+      <h4 class="font-semibold mb-2">Variant Information</h4>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">SKU</p>
+          <p class="font-medium"><%= variant.variant_sku %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Price</p>
+          <p class="font-medium">$<%= number_with_precision(variant.variant_price, precision: 2) %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Barcode</p>
+          <p class="font-medium"><%= variant.variant_barcode || 'N/A' %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Inventory Policy</p>
+          <p class="font-medium"><%= variant.variant_inventory_policy&.titleize || 'N/A' %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 dark:bg-neutral-800 rounded-lg p-4">
+      <h4 class="font-semibold mb-2">Product Information</h4>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Vendor</p>
+          <p class="font-medium"><%= product.vendor %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Category</p>
+          <p class="font-medium"><%= product.product_category %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Collection</p>
+          <p class="font-medium"><%= variant.product_collection || 'N/A' %></p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 dark:text-neutral-400">Status</p>
+          <p class="font-medium"><%= product.status.capitalize %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

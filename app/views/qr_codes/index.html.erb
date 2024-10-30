@@ -1,0 +1,36 @@
+<h1>QR Codes</h1>
+
+<%= link_to 'New QR Code', new_qr_code_path, class: 'btn btn-primary' %>
+
+<table class="table-auto w-full mt-4">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Price</th>
+    <th>QR Code</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @qr_codes.each do |qr_code| %>
+    <tr>
+      <td><%= qr_code.id %></td>
+      <td><%= qr_code.data %></td>
+      <td><%= number_to_currency(qr_code.price) %></td>
+      <td>
+        <% if qr_code.image.attached? %>
+          <%= image_tag qr_code.image.variant(resize: "100x100"), alt: "QR Code Image" %>
+        <% else %>
+          Not Generated
+        <% end %>
+      </td>
+      <td>
+        <%= link_to 'Show', qr_code, class: 'text-blue-500' %> |
+        <%= link_to 'Edit', edit_qr_code_path(qr_code), class: 'text-green-500' %> |
+        <%= link_to 'Delete', qr_code, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

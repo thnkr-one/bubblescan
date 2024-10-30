@@ -1,0 +1,13 @@
+<header class="flex flex-col z-50">
+    <nav class="bg-white border-b border-stone-200 dark:bg-neutral-800 dark:border-neutral-700">
+        <div class="max-w-[85rem] flex justify-between lg:grid lg:grid-cols-3 basis-full items-center w-full mx-auto py-2.5 px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center gap-x-3">
+            <div class="hidden sm:block">
+              <%= render 'ecomm/dashboard/empty_states/header/logo' %>
+              <%= render 'ecomm/dashboard/empty_states/header/collapse_button_trigger' %>
+            </div>
+            <%= render 'ecomm/dashboard/empty_states/header/search_input' %>
+          </div>
+        </div>
+    </nav>
+</header>

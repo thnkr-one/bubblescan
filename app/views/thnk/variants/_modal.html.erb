@@ -1,0 +1,19 @@
+<div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white rounded-lg p-6 w-11/12 md:w-1/2 lg:w-1/3 relative">
+    <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800" data-action="click->modal#close">
+      &times;
+    </button>
+    <h2 class="text-xl font-bold mb-4"><%= variant.thnk_product.title %></h2>
+    <p><strong>SKU:</strong> <%= variant.variant_sku %></p>
+    <p><strong>Price:</strong> <%= number_to_currency(variant.variant_price) %></p>
+    <p><strong>Description:</strong> <%= variant.thnk_product.body %></p>
+    <!-- Add more details as needed -->
+
+    <div class="mt-6 flex justify-around">
+      <%= link_to 'Update Inventory', edit_inventory_path(variant), class: 'btn btn-primary px-4 py-2 rounded' %>
+      <%= link_to 'View Details', thnk_product_path(variant.thnk_product), class: 'btn btn-secondary px-4 py-2 rounded' %>
+      <%= link_to 'Delete Product', thnk_product_path(variant.thnk_product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger px-4 py-2 rounded' %>
+      <%= link_to 'Add to Wishlist', wishlist_add_path(variant), method: :post, class: 'btn btn-success px-4 py-2 rounded' %>
+    </div>
+  </div>
+</div>
